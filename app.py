@@ -1,5 +1,6 @@
 #!flask/bin/python
 from flask import Flask, jsonify
+import datetime
 import random
 
 app = Flask(__name__)
@@ -14,6 +15,7 @@ orchestrationSuccess = {
 			"commitedBy": "Johns Snow",
 			"build": 12341,
 			"timestamp": None,
+			"branch": "develop",
 			"pendingChanges": [
 				{
 					"commitBy": "Tyrion Lannister",
@@ -28,9 +30,10 @@ orchestrationSuccess = {
 		
 orchestrationFail = {
 			"status": "fail",
-			"commitedBy": "Jaime Lannister",
+			"commitedBy": "Johns Snow",
 			"build": 12134,
 			"timestamp": None,
+			"branch": "develop",
 			"pendingChanges": [
 				{
 					"commitBy": "Tyrion Lannister",
@@ -45,9 +48,10 @@ orchestrationFail = {
 		
 orchestrationRunning = {
 				"status": "running",
-				"commitedBy": "Theon Greyjoy",
+				"commitedBy": "Johns Snow",
 				"build": 4325,
 				"timestamp": None,
+				"branch": "develop",
 				"pendingChanges": [
 					{
 						"commitBy": "Sansa Stark",
@@ -59,17 +63,71 @@ orchestrationRunning = {
 					}
 				]
 			}
-			
 
-@app.route('/api/orchestration', methods=['GET'])
-def get_tasks():
+def getResponse():
 	rand = random.randint(1,3)
 	response = orchestrationSuccess;
 	if rand == 2:
 		response = orchestrationFail;
 	if rand == 3:
 		response = orchestrationRunning;
-	return jsonify(response);
+	response['timestamp'] = datetime.datetime.now();
+	return response; 			
+
+@app.route('/api/orchestration', methods=['GET'])
+def getOrchestration():
+	response = getResponse();
+	return jsonify(response); 
+	
+@app.route('/api/ingestion', methods=['GET'])
+def getIngestion():
+	response = getResponse();
+	response['commitedBy'] = "Robb Stark";
+	return jsonify(response); 
+	
+@app.route('/api/core', methods=['GET'])
+def getCore():
+	response = getResponse();
+	response['commitedBy'] = "Viserys Targaryen";
+	return jsonify(response); 
+	
+@app.route('/api/commons', methods=['GET'])
+def getCommons():
+	response = getResponse();
+	response['commitedBy'] = "Ned Stark";
+	return jsonify(response); 
+
+@app.route('/api/security', methods=['GET'])
+def getSecurity():
+	response = getResponse();
+	response['commitedBy'] = "Joffrey Baratheon";
+	return jsonify(response); 
+
+@app.route('/api/maintenance', methods=['GET'])
+def getMaintenance():
+	response = getResponse();
+	response['commitedBy'] = "Theon Greyjoy";
+	return jsonify(response); 
+	
+@app.route('/api/registration', methods=['GET'])
+def getRegistration():
+	response = getResponse();
+	response['commitedBy'] = "Jaime Lannister";
+	return jsonify(response); 
+
+@app.route('/api/portal', methods=['GET'])
+def getPortal():
+	response = getResponse();
+	response['commitedBy'] = "Cersei Lannister";
+	return jsonify(response); 
+
+@app.route('/api/services', methods=['GET'])
+def getService():
+	response = getResponse();
+	response['commitedBy'] = "Daenerys Targaryen";
+	return jsonify(response); 	
+	
+	
 
 
 if __name__ == '__main__':
