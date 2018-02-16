@@ -152,21 +152,21 @@ def getPortal():
 
 
 @app.route('/api/services/develop', methods=['GET'])
-def getService():
+def getServices():
     response = getResponse();
     response['commitedBy'] = "Daenerys Targaryen";
     return jsonify(response);
 
 
 @app.route('/api/maintenance/develop', methods=['GET'])
-def getService():
+def getMaintenance():
     response = getResponse();
     response['commitedBy'] = "Lord Varys";
     return jsonify(response);
 
 
 @app.route('/api/discovery/develop', methods=['GET'])
-def getService():
+def getDiscovery():
     response = getResponse();
     response['commitedBy'] = "Arya Stark";
     return jsonify(response);
