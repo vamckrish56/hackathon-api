@@ -70,8 +70,8 @@ orchestrationRunning = {
     "build": 4325,
     "timestamp": None,
     "branch": "develop",
-    "estimatedTotalSeconds" : 123456799,
-    "elapsedTotalSeconds" : 123456799,
+    "estimatedTotalSeconds": 123456799,
+    "elapsedTotalSeconds": 123456799,
     "pendingChanges": [
         {
             "commitBy": "Sansa Stark",
@@ -155,6 +155,20 @@ def getPortal():
 def getService():
     response = getResponse();
     response['commitedBy'] = "Daenerys Targaryen";
+    return jsonify(response);
+
+
+@app.route('/api/maintenance/develop', methods=['GET'])
+def getService():
+    response = getResponse();
+    response['commitedBy'] = "Lord Varys";
+    return jsonify(response);
+
+
+@app.route('/api/discovery/develop', methods=['GET'])
+def getService():
+    response = getResponse();
+    response['commitedBy'] = "Arya Stark";
     return jsonify(response);
 
 
