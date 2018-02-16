@@ -237,18 +237,18 @@ sonar = {
 }
 
 
-@app.route('/api/sonar/develop', methods=['GET'])
+@app.route('/api/sonar', methods=['GET'])
 def getSonar():
     commitedBy = randNames[random.randint(1, len(randNames) - 1)];
     sonar["commitedBy"] = commitedBy;
-    converage = random.randint(1, 100) + '% Code Covered'
+    converage = str(random.randint(1, 100)) + '% Code Covered'
     sonar["coverage"] = converage;
-    vulnerabilities = random.randint(1, 1000) + ' vulnerabilities found'
+    vulnerabilities = str(random.randint(1, 1000)) + ' found'
     sonar["vulnerabilities"] = vulnerabilities;
-    codeSmells = random.randint(1, 1000) + 'Code Smells found'
+    codeSmells = str(random.randint(1, 1000)) + ' found'
     sonar["codeSmells"] = codeSmells;
-    bugs = random.randint(1, 1000)
-    sonar["bugs"] = bugs + ' Bugs found'
+    bugs = str(random.randint(1, 1000))
+    sonar["bugs"] = bugs + ' found'
     sonar['timestamp'] = datetime.datetime.now();
     return jsonify(sonar);
 
