@@ -172,42 +172,27 @@ def getmaintenance():
 stats = {
     "cpu": None,
     "memory": None,
-    "diskspace": None
+    "diskspace": None,
+    "timestamp": None,
+    "ingestion":None,
+    "database":None
 }
 
 database = {
-    "database": None
-}
-
-ingestion = {
-    "ingestion": None
+    "database": None,
+    "timestamp": None
 }
 
 
 @app.route('/api/stats', methods=['GET'])
 def getStats():
     cpu = random.randint(1, 100)
-    stats['cpu'] = cpu;
-    memory = random.randint(1000, 10000000)
-    stats['memory'] = memory;
-    diskspace = random.randint(10000, 1000000000)
-    stats['diskspace'] = diskspace;
-    return jsonify(stats);
-
-
-@app.route('/api/database', methods=['GET'])
-def getDatabase():
-    rand = random.randint(1, 3)
-    database["database"] = "UP";
-    if rand == 2:
-        database["database"] = "DOWN";
-    if rand == 3:
-        database["database"] = "INDEXING";
-    return jsonify(database);
-
-
-@app.route('/api/ingestionStats', methods=['GET'])
-def getIngestionStats():
+    stats['cpu'] = str(cpu) + '% Consumed';
+    memory = random.randint(1024, 3020)
+    stats['memory'] = str(memory) + 'MB out of 4096MB consumed';
+    diskspace = random.randint(10, 100)
+    stats['diskspace'] = str(diskspace) + 'TB out of 150 TB is full';
+    stats['timestamp'] = datetime.datetime.now();
     string = 'Consumed ';
     files = random.randint(1, 1000)
     string += str(files);
@@ -215,8 +200,19 @@ def getIngestionStats():
     minutes = random.randint(1, 120)
     string += str(minutes);
     string += " minutes";
-    ingestion["ingestion"] = string;
-    return jsonify(ingestion);
+    stats["ingestion"] = string;
+
+    rand = random.randint(1, 3)
+    status = "MongoDB is "
+    if rand == 1:
+        stats["database"] = status + "UP";
+    if rand == 2:
+        stats["database"] = status + "DOWN";
+    if rand == 3:
+        stats["database"] = status + "INDEXING";
+
+    return jsonify(stats);
+
 
 
 sonar = {
@@ -233,14 +229,14 @@ sonar = {
 def getSonar():
     commitedBy = randNames[random.randint(1, len(randNames) - 1)];
     sonar["commitedBy"] = commitedBy;
-    converage = random.randint(1, 100)
+    converage = random.randint(1, 100) + '% Code Covered'
     sonar["coverage"] = converage;
-    vulnerabilities = random.randint(1, 1000)
+    vulnerabilities = random.randint(1, 1000) + ' vulnerabilities found'
     sonar["vulnerabilities"] = vulnerabilities;
-    codeSmells = random.randint(1, 1000)
+    codeSmells = random.randint(1, 1000) + 'Code Smells found'
     sonar["codeSmells"] = codeSmells;
     bugs = random.randint(1, 1000)
-    sonar["bugs"] = bugs;
+    sonar["bugs"] = bugs + ' Bugs found'
     sonar['timestamp'] = datetime.datetime.now();
     return jsonify(sonar);
 
