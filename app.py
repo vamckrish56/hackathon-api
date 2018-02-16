@@ -9,8 +9,11 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return "Hello, World!"
-	
-randNames = ["Robert Baratheon", "Jaime Lannister", "Catelyn Stark", "Cersei Lannister", "Daenerys Targaryen", "Jorah Mormont", "Viserys Targaryen", "Jon Snow", "Sansa Stark", "Arya Stark", "Robb Stark", "Theon Greyjoy"]
+
+
+randNames = ["Robert Baratheon", "Jaime Lannister", "Catelyn Stark", "Cersei Lannister", "Daenerys Targaryen",
+             "Jorah Mormont", "Viserys Targaryen", "Jon Snow", "Sansa Stark", "Arya Stark", "Robb Stark",
+             "Theon Greyjoy"]
 
 orchestrationSuccess = {
     "status": "success",
@@ -31,7 +34,7 @@ orchestrationSuccess = {
 }
 
 orchestrationFail = {
-    "status": "fail",
+    "status": "failure",
     "commitedBy": "Johns Snow",
     "build": 12134,
     "timestamp": None,
@@ -130,6 +133,7 @@ def getSecurity():
     response['commitedBy'] = "Joffrey Baratheon";
     return jsonify(response);
 
+
 @app.route('/api/registration/develop', methods=['GET'])
 def getRegistration():
     response = getResponse();
@@ -151,88 +155,95 @@ def getServices():
     return jsonify(response);
 
 
-@app.route('/api/maintenance/develop', methods=['GET'])
-def getMaintenance():
-    response = getResponse();
-    response['commitedBy'] = "Lord Varys";
-    return jsonify(response);
-
-
 @app.route('/api/discovery/develop', methods=['GET'])
 def getDiscovery():
     response = getResponse();
     response['commitedBy'] = "Arya Stark";
     return jsonify(response);
 
-	
+
+@app.route('/api/maintenance/develop', methods=['GET'])
+def getmaintenance():
+    response = getResponse();
+    response['commitedBy'] = "Lord Varys";
+    return jsonify(response);
+
+
 stats = {
-			"cpu": None,
-			"memory": None,
-			"diskspace": None
-		}
-	
+    "cpu": None,
+    "memory": None,
+    "diskspace": None
+}
+
 database = {
-			"database": None
-		}
+    "database": None
+}
 
 ingestion = {
-			"ingestion": None
-		}
+    "ingestion": None
+}
+
 
 @app.route('/api/stats', methods=['GET'])
 def getStats():
-	cpu = random.randint(1,100)
-	stats['cpu'] = cpu;
-	memory = random.randint(1000,10000000)
-	stats['memory'] = memory;
-	diskspace = random.randint(10000,1000000000)
-	stats['diskspace'] = diskspace;	
-	return jsonify(stats);
-	
+    cpu = random.randint(1, 100)
+    stats['cpu'] = cpu;
+    memory = random.randint(1000, 10000000)
+    stats['memory'] = memory;
+    diskspace = random.randint(10000, 1000000000)
+    stats['diskspace'] = diskspace;
+    return jsonify(stats);
+
+
 @app.route('/api/database', methods=['GET'])
 def getDatabase():
-	rand = random.randint(1,3)
-	database["database"] = "UP";
-	if rand == 2:
-		database["database"] = "DOWN";
-	if rand == 3:
-		database["database"] = "INDEXING";
-	return jsonify(database); 
+    rand = random.randint(1, 3)
+    database["database"] = "UP";
+    if rand == 2:
+        database["database"] = "DOWN";
+    if rand == 3:
+        database["database"] = "INDEXING";
+    return jsonify(database);
+
 
 @app.route('/api/ingestionStats', methods=['GET'])
 def getIngestionStats():
-	string = 'Consumed ';
-	files = random.randint(1,1000)
-	string += str(files);
-	string += " files in ";
-	minutes = random.randint(1,120)
-	string += str(minutes);
-	string += " minutes";
-	ingestion["ingestion"] = string;
-	return jsonify(ingestion); 
+    string = 'Consumed ';
+    files = random.randint(1, 1000)
+    string += str(files);
+    string += " files in ";
+    minutes = random.randint(1, 120)
+    string += str(minutes);
+    string += " minutes";
+    ingestion["ingestion"] = string;
+    return jsonify(ingestion);
+
 
 sonar = {
-				"commitedBy": None,
-				"coverage": None,
-				"vulnerabilities": None,
-				"codeSmells": None,
-				"bugs": None,
-				"timestamp": None
-			}	
+    "commitedBy": None,
+    "coverage": None,
+    "vulnerabilities": None,
+    "codeSmells": None,
+    "bugs": None,
+    "timestamp": None
+}
+
+
 @app.route('/api/sonar/develop', methods=['GET'])
 def getSonar():
-	commitedBy = randNames[random.randint(1, len(randNames)-1)];
-	sonar["commitedBy"] = commitedBy;
-	converage = random.randint(1,100)
-	sonar["coverage"] = converage;
-	vulnerabilities = random.randint(1,1000)
-	sonar["vulnerabilities"] = vulnerabilities;
-	codeSmells = random.randint(1,1000)
-	sonar["codeSmells"] = codeSmells;
-	bugs = random.randint(1,1000)
-	sonar["bugs"] = bugs;
-	sonar['timestamp'] = datetime.datetime.now();
-	return jsonify(sonar); 
-	
+    commitedBy = randNames[random.randint(1, len(randNames) - 1)];
+    sonar["commitedBy"] = commitedBy;
+    converage = random.randint(1, 100)
+    sonar["coverage"] = converage;
+    vulnerabilities = random.randint(1, 1000)
+    sonar["vulnerabilities"] = vulnerabilities;
+    codeSmells = random.randint(1, 1000)
+    sonar["codeSmells"] = codeSmells;
+    bugs = random.randint(1, 1000)
+    sonar["bugs"] = bugs;
+    sonar['timestamp'] = datetime.datetime.now();
+    return jsonify(sonar);
+
+
 if __name__ == '__main__':
     app.run(debug=True)
