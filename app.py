@@ -43,7 +43,24 @@ orchestrationFail = {
         {
             "commitBy": "Viserys Targaryen",
             "changeId": 31231
-        }
+        },
+        {
+            "commitBy": "Tyrion Lannister",
+            "changeId": 1211
+        },
+        {
+            "commitBy": "Viserys Targaryen",
+            "changeId": 312311
+        },
+        {
+            "commitBy": "Tyrion Lannister",
+            "changeId": 112221
+        },
+        {
+            "commitBy": "Viserys Targaryen",
+            "changeId": 312231
+        },
+
     ]
 }
 
@@ -53,6 +70,8 @@ orchestrationRunning = {
     "build": 4325,
     "timestamp": None,
     "branch": "develop",
+    "estimatedTotalSeconds" : 123456799,
+    "elapsedTotalSeconds" : 123456799,
     "pendingChanges": [
         {
             "commitBy": "Sansa Stark",
